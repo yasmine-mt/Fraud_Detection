@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue dans notre système de détection de fraude en ligne</h1>
+        <div class="choices">
+            <a href="/data" class="choice">Visualiser les Données</a>
+            <a href="/predict" class="choice">Prédire</a>
+            <a href="/model_performance" class="choice">Performance des Modèles</a>
+        </div>
+    </div>
+</body>
+</html>
