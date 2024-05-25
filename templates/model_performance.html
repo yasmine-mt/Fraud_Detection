@@ -4,12 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance des Modèles</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleindex.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1300px; /* Augmentation de la largeur */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Ajout d'un défilement horizontal si nécessaire */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Performance des Modèles</h1>
-        <!-- Ajoutez ici les métriques de performance des différents modèles -->
+        <!-- Tableau pour afficher les métriques -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Modèle</th>
+                    <th>Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1 Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for model, metrics in model_metrics.items() %}
+                <tr>
+                    <td>{{ model }}</td>
+                    <td>{{ metrics['Accuracy']|round(4) }}</td>
+                    <td>{{ metrics['Precision']|round(4) }}</td>
+                    <td>{{ metrics['Recall']|round(4) }}</td>
+                    <td>{{ metrics['F1 Score']|round(4) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

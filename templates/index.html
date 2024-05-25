@@ -1,19 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Fraud Detection</title>
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="static/styleindex.css" rel="stylesheet" />
+    <script src="static/scripts.js"></script>
+
 </head>
-<body>
-    <div class="container">
-        <h1>Bienvenue dans notre système de détection de fraude en ligne</h1>
-        <div class="choices">
-            <a href="/data" class="choice">Visualiser les Données</a>
-            <a href="/predict" class="choice">Prédire</a>
-            <a href="/model_performance" class="choice">Performance des Modèles</a>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#page-top">Système de Détection de Fraude dans le paiement en ligne</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/data">Visualiser les Données</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/predict">Prédire</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/performance">Performance des Modèles</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1 class="mx-auto my-0 text-uppercase" style="font-size: 24pt; font-weight: bold; color: #0000FF;">Online Payment Fraud Detection</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Une application pour la prédiction de fraude basée sur l'apprentissage automatique.</h2>
+                    <a class="btn btn-primary" href="#about">Commencer</a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- About-->
+    <section class="about-section text-center" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+
+            </div>
+        </div>
+    </section>
+    <!-- Projects-->
+   <section class="projects-section bg-light" id="projects">
+    <div class="container px-4 px-lg-5">
+        <!-- Featured Project Row - Logistic Regression -->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="static/assets/img/bg-masthead.jpg" alt="Logistic Regression" /></div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="featured-text text-center text-lg-left">
+                    <h4>Logistic Regression</h4>
+                    <p class="text-black-50 mb-0">La régression logistique est un modèle statistique utilisé pour prédire la probabilité d'un événement en fonction de un ou plusieurs facteurs.</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Project One Row - Random Forest -->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="static/assets/img/demo-image-01.jpg" alt="Random Forest" /></div>
+
+            <div class="col-lg-6">
+                <div class="bg-dark text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Random Forest</h4>
+                            <p class="mb-0 text-white-50">Random Forest est un algorithme d'apprentissage automatique utilisé à la fois pour la classification et la régression. Il crée un ensemble de modèles d'arbres de décision, puis agrège leurs prédictions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Project Two Row - Oversampling -->
+        <div class="row gx-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="static/assets/img/demo-image-02.jpg" alt="Oversampling" /></div>
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-light text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-black">Oversampling</h4>
+                            <p class="mb-0 text-black-50">L'oversampling est une technique utilisée pour équilibrer les classes dans un ensemble de données déséquilibré en augmentant le nombre d'échantillons de la classe minoritaire.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</section>
+
