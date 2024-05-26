@@ -1,83 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance des Modèles</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styleindex.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Fraud Detection</title>
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="static/styleindex.css" rel="stylesheet" />
+    <script src="static/scripts.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
+        .form-container {
+            margin-top: 50px;
         }
 
-        .container {
-            max-width: 1300px; /* Augmentation de la largeur */
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow-x: auto; /* Ajout d'un défilement horizontal si nécessaire */
+        .prediction-result {
+            margin-top: 20px;
         }
 
-        h1 {
-            text-align: center;
+        label {
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-group {
             margin-bottom: 20px;
-            color: #007bff;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+
+        .form-control {
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        ::placeholder {
+            color: #dddddd;
+        }
+
+        .form-control:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #45a049;
+            background-color: #dddddd;
         }
 
         table {
             width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
         }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
         }
 
-        th {
-            background-color: #007bff;
-            color: #fff;
+        table th {
+            background-color: #173c5b;
+            color: white;
         }
 
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
+        table td {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.73);
+        }
+
+        table tr:hover {
+            background-color: rgba(255, 255, 255, 0.49);
+        }
+
+        table tr:nth-child(uneven) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        table thead {
+            border-bottom: 2px solid #4CAF50;
         }
     </style>
 </head>
-<body>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">Système de Détection de Fraude dans le paiement en ligne</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/data">Visualiser les Données</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/predict">Prédire</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/performance">Performance des Modèles</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Modèle</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for model, metrics in model_metrics.items() %}
+                        <tr>
+                            <td>{{ model }}</td>
+                            <td>{{ metrics['Accuracy']|round(5) }}</td>
+                            <td>{{ metrics['Precision']|round(5) }}</td>
+                            <td>{{ metrics['Recall']|round(5) }}</td>
+                            <td>{{ metrics['F1 Score']|round(5) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </header>
 
-    <div class="container">
-        <h1>Performance des Modèles</h1>
-        <!-- Tableau pour afficher les métriques -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Modèle</th>
-                    <th>Accuracy</th>
-                    <th>Precision</th>
-                    <th>Recall</th>
-                    <th>F1 Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for model, metrics in model_metrics.items() %}
-                <tr>
-                    <td>{{ model }}</td>
-                    <td>{{ metrics['Accuracy']|round(4) }}</td>
-                    <td>{{ metrics['Precision']|round(4) }}</td>
-                    <td>{{ metrics['Recall']|round(4) }}</td>
-                    <td>{{ metrics['F1 Score']|round(4) }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 </body>
 </html>
