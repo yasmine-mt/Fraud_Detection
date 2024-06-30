@@ -115,28 +115,33 @@
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Modèle</th>
-                            <th>Accuracy</th>
-                            <th>Precision</th>
-                            <th>Recall</th>
-                            <th>F1 Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for model, metrics in model_metrics.items() %}
-                        <tr>
-                            <td>{{ model }}</td>
-                            <td>{{ metrics['Accuracy']|round(5) }}</td>
-                            <td>{{ metrics['Precision']|round(5) }}</td>
-                            <td>{{ metrics['Recall']|round(5) }}</td>
-                            <td>{{ metrics['F1 Score']|round(5) }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">Modèle</th>
+                        <th scope="col">Accuracy</th>
+                        <th scope="col">Precision</th>
+                        <th scope="col">Recall</th>
+                        <th scope="col">F1 Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model, metrics in model_metrics.items() %}
+                    <tr>
+                        <td>{{ model }}</td>
+                        <td>{{ metrics['Accuracy']|round(5) }}</td>
+                        <td>{{ metrics['Precision']|round(5) }}</td>
+                        <td>{{ metrics['Recall']|round(5) }}</td>
+                        <td>{{ metrics['F1 Score']|round(5) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</header>
+
             </div>
         </div>
     </header>

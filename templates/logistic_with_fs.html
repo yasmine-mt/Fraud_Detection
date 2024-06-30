@@ -18,14 +18,8 @@
 
         .prediction-result {
             margin-top: 20px;
-        }
-           .btn:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        .btn:focus {
-            outline: none;
+            text-align: center;
+            color: white;
         }
 
         label {
@@ -47,36 +41,30 @@
 
         /* Style personnalisé pour les champs de saisie */
         .form-control {
-            border: 2px solid #4CAF50; /* Bordure verte */
+            border: 2px solid #086d63; /* Bordure verte */
             border-radius: 10px;
             padding: 10px;
             font-size: 16px;
-            background-color: rgba(255, 255, 255, 0.2); /* Fond transparent avec opacité */
-            color: white;
+            background-color: rgb(247, 247, 247); /* Fond transparent avec opacité */
+            color: #000000;
+            width: 100%;
+            box-sizing: border-box; /* Assure que la largeur inclut le padding */
         }
 
         /* Style pour le texte de l'attribut placeholder */
         ::placeholder {
             color: #dddddd; /* Gris clair */
         }
-.form-control {
-            border: 2px solid #4CAF50; /* Bordure verte */
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 16px;
-            background-color: rgba(255, 255, 255, 0.2); /* Fond transparent avec opacité */
-            color: white;
-            transition: background-color 0.3s;
-        }
+
         /* Effet de survol */
         .form-control:hover {
-            background-color: rgba(255, 255, 255, 0.3); /* Fond transparent plus clair au survol */
+            background-color: rgb(31, 52, 100); /* Fond transparent plus clair au survol */
         }
 
         /* Effet de focus */
         .form-control:focus {
             outline: none; /* Supprimer le contour */
-            border-color: #45a049; /* Bordure verte foncée au focus */
+            border-color: #0b6563; /* Bordure verte foncée au focus */
             background-color: #dddddd; /* Fond transparent plus clair au focus */
         }
     </style>
@@ -102,51 +90,60 @@
 
     <!-- Entête -->
     <header class="masthead">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">
-            <div class="text-center">
-                <h1 class="text-white-50 mx-auto mt-2 mb-5" style="font-size: 3em;">Détection de la Fraude</h1>
-                <div class="form-container">
-                    <form action="/predict" method="post">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Résultat de la Prédiction pour la Régression Logistique avec Sélection de Caractéristiques</h2>
+
+                    <!-- Formulaire pour la saisie utilisateur -->
+                    <div class="form-container">
+                        <form action="/predict_logistic_with_fs" method="post">
                             <div class="form-group">
-                                <label for="model">Choisir un Modèle :</label><br>
-                                <input type="radio" id="logistic" name="model" value="logistic">
-                                <label for="logistic">Régression Logistique</label><br>
-                                <input type="radio" id="random_forest" name="model" value="random_forest">
-                                <label for="random_forest">Forêt Aléatoire</label><br>
+                                <label for="oldbalanceOrg">Solde Ancien Org:</label><br>
+                                <input type="text" id="oldbalanceOrg" name="oldbalanceOrg" class="form-control" placeholder="Entrez le solde ancien de l'expéditeur"><br>
                             </div>
+
                             <div class="form-group">
-                                <label for="feature_selection">Sélection des Caractéristiques :</label><br>
-                                <input type="radio" id="with_fs" name="feature_selection" value="with">
-                                <label for="with_fs">Avec Sélection de Caractéristiques</label><br>
-                                <input type="radio" id="without_fs" name="feature_selection" value="without">
-                                <label for="without_fs">Sans Sélection de Caractéristiques</label><br>
+                                <label for="newbalanceOrig">Nouveau Solde Orig:</label><br>
+                                <input type="text" id="newbalanceOrig" name="newbalanceOrig" class="form-control" placeholder="Entrez le nouveau solde de l'expéditeur"><br>
                             </div>
+
+                            <div class="form-group">
+                                <label for="oldbalanceDest">Solde Ancien Dest:</label><br>
+                                <input type="text" id="oldbalanceDest" name="oldbalanceDest" class="form-control" placeholder="Entrez le solde ancien du destinataire"><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newbalanceDest">Nouveau Solde Dest:</label><br>
+                                <input type="text" id="newbalanceDest" name="newbalanceDest" class="form-control" placeholder="Entrez le nouveau solde du destinataire"><br>
+                            </div>
+
                             <!-- Bouton Soumettre -->
                             <div class="btn-container">
                                 <button type="submit" class="btn btn-primary btn-lg" name="predict">Prédire</button>
                             </div>
                         </form>
                     </div>
+
+                    <!-- Affichage du résultat de la prédiction -->
+                    <div class="prediction-result">
+                        {% if prediction_result %}
+                            <p>Résultat de la prédiction : {{ prediction_result }}</p>
+                        {% endif %}
+                        <!-- Display prediction plot -->
+    {% if plot_base64 %}
+    <div>
+        <img src="data:image/png;base64,{{ plot_base64 }}" alt="Transaction Position">
+    </div>
+    {% endif %}
+
+    <div>
+        <a href="/">Retour à l'accueil</a>
+    </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <!-- Résultat de la Prédiction -->
-    <div class="container px-4 px-lg-5 prediction-result">
-        {% if prediction_result %}
-        <div class="alert alert-info" role="alert">
-            <strong>Résultat de la Prédiction :</strong> {{ prediction_result }}
-        </div>
-        {% endif %}
-    </div>
-
-    <!-- Script de redirection -->
-    <script>
-        function redirectTo(url) {
-            window.location.href = url;
-        }
-    </script>
 </body>
 </html>
